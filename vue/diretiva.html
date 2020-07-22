@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    
+    <div id="app">
+        
+        <br/>
+
+        <p ref="firstParagraph">
+            Escolha o estilo desta frase usando os botões abaixo.
+        </p>
+
+        <button @click="amarelo()">amarelo</button>
+        <button @click="azul()">azul</button>
+        <button @click="verde">verde</button>
+        <button @click="vermelho()">vermelho</button>
+        <button @click="borda()">borda</button>
+        <button @click="incolor()">incolor</button>
+
+        <br/> <br/>
+        <hr>
+
+        <p>
+        Agora crie a sua listinha digitando os ítens na barra abaixo e dando enter após cada um. Você pode marcar e desmarcar os ítens da listinha clicando neles.
+        </p>
+                
+        <input type="text" v-model="textDigitado"
+        v-on:keyup.enter="alterarNome()" />
+
+        <ul>
+            <li v-for="item in array"
+            style="background: white"
+                @click="alerta($event)">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+           el: '#app',
+           data: {
+               classParagrafo: "red",
+               textDigitado:"",
+               array: []
+            },
+            methods: {
+                alterarNome() {
+                    this.array.push(this.textDigitado);
+                    this.textDigitado = "";
+                },
+                alerta(event){
+                    element = event.target;
+                    if (element.style.background == "white")
+                     event.target.style ="background: red";
+                    else event.target.style = "background: white";
+                },
+                corP(cor) {
+                    console.log(cor);
+                    this.classParagrafo = cor;
+                },
+                amarelo() {
+                    this.$refs.firstParagraph.style.background = "yellow"
+                },
+                azul() {
+                    this.$refs.firstParagraph.style.background = "blue"
+                },
+                vermelho() {
+                    this.$refs.firstParagraph.style.background = "red"
+                },
+                verde() {
+                    this.$refs.firstParagraph.style.background = "green"
+                },
+                borda() {
+                    this.$refs.firstParagraph.style.border = "2px solid black"
+                },
+                incolor() {
+                    this.$refs.firstParagraph.style = ""
+                }
+            } 
+        })
+    </script>   
+</body>
+</html>
